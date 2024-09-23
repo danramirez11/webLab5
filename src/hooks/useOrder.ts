@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Food, Bill } from "../types/types";
+import { Food, BillType } from "../types/types";
 
 const useOrder = () => {
     const startingBill = {
@@ -9,61 +9,40 @@ const useOrder = () => {
         tip: 0,
         total: 0
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [bills, setBills] = useState<Bill[]>([]);
-    const [actualBill, setActualBill] = useState<Bill>(startingBill);
+    const [actualBill, setActualBill] = useState<BillType>(startingBill);
 
-    const addBill = (bill: Bill) => {
-        setBills((p) => [...p, bill]);
+    const addBill = () => {
         setActualBill(startingBill);
     };
 
     const addFood = (food: Food) => {
         if (actualBill.food.some((item) => item.id === food.id)) {
-            setActualBill((p: Bill) => {
-                return {
-                    ...p,
-                    food: p.food.map((item) => {
-                        if (item.id === food.id) {
-                            return {
-                                ...item,
-                                quantity: item.quantity + 1
-                            }
-                        }
-                        return item;
-                    })
-                }
-            })
+          setActualBill((p: BillType) => ({
+            ...p,
+            food: p.food.map((item) =>
+              item.id === food.id ? { ...item, quantity: item.quantity + food.quantity } : item
+            ),
+          }));
         } else {
-            setActualBill((p: Bill) => {
-                return {
-                    ...p,
-                    food: [...p.food, food]
-                }
-            })
+          setActualBill((p: BillType) => ({ ...p, food: [...p.food, food] }));
         }
-    }
+      }
 
-    const removeFood = (food: Food) => {
+      const removeFood = (food: Food) => {
         if (actualBill.food.some((item) => item.id === food.id)) {
-            setActualBill((p: Bill) => {
-                return {
-                    ...p,
-                    food: p.food.map((item) => {
-                        if (item.id === food.id) {
-                            return {
-                                ...item,
-                                quantity: item.quantity - 1
-                            }
-                        }
-                        return item;
-                    }).filter((item) => item.quantity > 0)
-                }
-            })
-    }}
+          setActualBill((p: BillType) => ({
+            ...p,
+            food: p.food.map((item) =>
+              item.id === food.id
+                ? { ...item, quantity: Math.max(item.quantity - 1, 0) } 
+                : item
+            ),
+          }));
+        }
+      };
 
     const addTip = (tip: number) => {
-        setActualBill((p: Bill) => {
+        setActualBill((p: BillType) => {
             return {
                 ...p,
                 tipPer: tip
@@ -72,19 +51,17 @@ const useOrder = () => {
     }
 
     const calculateBill = () => {
-        const subtotal = actualBill.food.reduce((acc, item) => acc + item.price*item.quantity, 0);
+        const subtotal = actualBill.food.reduce((acc, item) => acc + item.price * item.quantity, 0);
         const tip = subtotal * (actualBill.tipPer / 100);
         const total = subtotal + tip;
-
-        setActualBill((p) => {
-            return {
-                ...p,
-                subtotal,
-                tip,
-                total
-            }
-        })
-    }
+      
+        setActualBill((prevBill) => ({
+          ...prevBill,
+          subtotal,
+          tip,
+          total,
+        }));
+      };
 
     useEffect(() => {
         calculateBill();

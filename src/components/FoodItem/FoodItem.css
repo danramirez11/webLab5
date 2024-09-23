@@ -1,0 +1,13 @@
+.foodItem{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid purple;
+}
+
+.foodItem button{
+    background-color: transparent;
+    border: 1px solid rgb(141, 15, 15);
+    color: rgb(141, 15, 15);
+    padding: 0px 10px;
+}

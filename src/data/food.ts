@@ -13,20 +13,44 @@ const food = [
     },
     {
         id: 3,
-        name: 'Pizza BBQ Chicken',
+        name: 'Burger with fries',
         price: 15,
         quantity: 1
     },
     {
         id: 4,
-        name: 'Pizza Hawaiian',
+        name: 'Spaghetti Carbonara',
         price: 13,
         quantity: 1
     },
     {
         id: 5,
-        name: 'Pizza Meat Lovers',
-        price: 16,
+        name: 'Spaghetti Bolognese',
+        price: 13,
+        quantity: 1
+    },
+    {
+        id: 6,
+        name: 'Tiramisu',
+        price: 6,
+        quantity: 1
+    },
+    {
+        id: 7,
+        name: 'Red Velvet Cake',
+        price: 7,
+        quantity: 1
+    },
+    {
+        id: 8,
+        name: 'Coca Cola',
+        price: 2,
+        quantity: 1
+    },
+    {
+        id: 10,
+        name: 'Water',
+        price: 1,
         quantity: 1
     }
 ]

@@ -5,7 +5,7 @@ export interface Food {
     quantity: number;
 }
 
-export interface Bill {
+export interface BillType {
     food: Food[];
     tipPer: number;
     subtotal: number;

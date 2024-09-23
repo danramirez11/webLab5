@@ -1,0 +1,22 @@
+.menu{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    gap: 10px;
+    width: 100%;
+}
+
+.menu-item{
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 4px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid purple;
+}
+
+.menu-item:hover{
+    background-color: purple;
+    color: white;
+}
