@@ -2,23 +2,21 @@ import { useEffect, useState } from "react";
 import { Food, BillType } from "../types/types";
 
 const useOrder = () => {
-    
-    const [actualBill, setActualBill] = useState<BillType>({
-      food: [],
-      tipPer: 0,
-      subtotal: 0,
-      tip: 0,
-      total: 0
-  });
+
+  const startingBill: BillType = {
+    food: [],
+    tipPer: 0,
+    subtotal: 0,
+    tip: 0,
+    total: 0
+  }
+
+  const [bills, setBills] = useState<BillType[]>([])
+  const [actualBill, setActualBill] = useState<BillType>(startingBill);
 
     const addBill = () => {
-        setActualBill({
-          food: [],
-          tipPer: 0,
-          subtotal: 0,
-          tip: 0,
-          total: 0
-      });
+        setActualBill(startingBill);
+        setBills((p: BillType[]) => [...p, actualBill]);
     };
 
     const addFood = (food: Food) => {
@@ -58,7 +56,8 @@ const useOrder = () => {
 
     const calculateBill = () => {
         const subtotal = actualBill.food.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        const tip = subtotal * (actualBill.tipPer / 100);
+        const tipNoFixed = subtotal * (actualBill.tipPer / 100);
+        const tip = Number(tipNoFixed.toFixed(2));
         const total = subtotal + tip;
       
         setActualBill((prevBill) => ({
