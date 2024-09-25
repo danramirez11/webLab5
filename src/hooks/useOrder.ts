@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 import { Food, BillType } from "../types/types";
 
 const useOrder = () => {
-    const startingBill = {
-        food: [],
-        tipPer: 0,
-        subtotal: 0,
-        tip: 0,
-        total: 0
-    }
-    const [actualBill, setActualBill] = useState<BillType>(startingBill);
+    
+    const [actualBill, setActualBill] = useState<BillType>({
+      food: [],
+      tipPer: 0,
+      subtotal: 0,
+      tip: 0,
+      total: 0
+  });
 
     const addBill = () => {
-        setActualBill(startingBill);
+        setActualBill({
+          food: [],
+          tipPer: 0,
+          subtotal: 0,
+          tip: 0,
+          total: 0
+      });
     };
 
     const addFood = (food: Food) => {
@@ -36,7 +42,7 @@ const useOrder = () => {
               item.id === food.id
                 ? { ...item, quantity: Math.max(item.quantity - 1, 0) } 
                 : item
-            ),
+            ).filter((item) => item.quantity > 0),
           }));
         }
       };

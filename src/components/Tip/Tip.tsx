@@ -1,8 +1,10 @@
 import './Tip.css';
-import useOrder from '../../hooks/useOrder';
 
-const Tip = () => {
-    const { addTip } = useOrder();
+type TipProps = {
+    onAddTip: (tip: number) => void;
+}
+
+const Tip = ({onAddTip}: TipProps) => {
 
     return (
         <div className='tip'>
@@ -12,7 +14,7 @@ const Tip = () => {
                     type="radio" 
                     name="tip" 
                     value="10" 
-                    onChange={() => addTip(10)} 
+                    onChange={() => onAddTip(10)} 
                 />
                 10%
             </label>
@@ -21,7 +23,7 @@ const Tip = () => {
                     type="radio" 
                     name="tip" 
                     value="15" 
-                    onChange={() => addTip(15)} 
+                    onChange={() => onAddTip(15)} 
                 />
                 15%
             </label>
@@ -30,7 +32,7 @@ const Tip = () => {
                     type="radio" 
                     name="tip" 
                     value="20" 
-                    onChange={() => addTip(20)} 
+                    onChange={() => onAddTip(20)} 
                 />
                 20%
             </label>

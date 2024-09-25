@@ -31,3 +31,9 @@ section{
     margin: 8px;
     gap: 20px;
 }
+
+@media (max-width: 768px){
+    section{
+        flex-direction: column;
+    }
+}

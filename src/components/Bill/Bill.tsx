@@ -1,15 +1,16 @@
-import useOrder from "../../hooks/useOrder";
-import { BillType } from "../../types/types";
+import { BillType, Food } from "../../types/types";
 import FoodItem from "../FoodItem/FoodItem";
 import Tip from "../Tip/Tip";
 import './Bill.css';
 
 type BillProps = {
     bill: BillType;
+    onAddTip: (tip: number) => void;
+    onRemoveFood: (food: Food) => void;
+    onSubmitOrder: () => void;
 }
 
-const Bill = ({bill}: BillProps) => {
-    const { removeFood } = useOrder();
+const Bill = ({bill, onAddTip, onRemoveFood, onSubmitOrder}: BillProps) => {
 
     return (
         <div className="bill">
@@ -24,12 +25,12 @@ const Bill = ({bill}: BillProps) => {
             <div className="bill-foods">
                 {bill.food.map((item) => {
                     return (
-                        <FoodItem key={item.id} food={item} onDelete={removeFood}/>
+                        <FoodItem key={item.id} food={item} onRemoveFood={onRemoveFood}/>
                     );
                 })}
             </div>
 
-            <Tip/>
+            <Tip onAddTip={onAddTip}/>
 
             <h3>Totals</h3>
 
@@ -39,7 +40,7 @@ const Bill = ({bill}: BillProps) => {
                 <p>Total: <b>${bill.total}</b></p>
             </div>
             
-            <button>Place Order</button>
+            <button onClick={onSubmitOrder}>Place Order</button>
             </>
             
             }

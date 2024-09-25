@@ -6,14 +6,14 @@ import useOrder from "./hooks/useOrder"
 import './theme/style.css';
 
 const App = () => {
-    const { actualBill } = useOrder();
+    const { actualBill, addFood, addTip, removeFood, addBill} = useOrder();
 
     return (
         <>
         <Header/>
         <section>
-        <Menu food={food}/>
-        <Bill bill={actualBill}/>
+        <Menu onAddFood={addFood} food={food}/>
+        <Bill bill={actualBill} onAddTip={addTip} onRemoveFood={removeFood} onSubmitOrder={addBill}/>
         </section>
         </>
     )

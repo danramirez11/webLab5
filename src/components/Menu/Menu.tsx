@@ -1,14 +1,12 @@
-import useOrder from '../../hooks/useOrder';
 import { Food } from '../../types/types';
 import './Menu.css';
 
 type MenuProps = {
     food: Food[];
+    onAddFood: (food: Food) => void;
 }
 
-const Menu = ({food}: MenuProps) => {
-    const { addFood } = useOrder();
-
+const Menu = ({food, onAddFood}: MenuProps) => {
     return (
         <div className='menu'>
         <h2>Menu</h2>
@@ -16,7 +14,7 @@ const Menu = ({food}: MenuProps) => {
             return (
                 <div key={item.id} 
                 className="menu-item"
-                onClick={() => addFood(item)}>
+                onClick={() => onAddFood(item)}>
                     <p><b>{item.name}</b></p>
                     <p>${item.price}</p>
                 </div>
